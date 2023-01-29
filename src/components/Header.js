@@ -8,27 +8,32 @@ import {
   Tabs,
   Tab,
 } from "@mui/material";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const isLoggedIn = useSelector(state => state.isLoggedIn)
   const [value, setValue] = useState();
   return (
-    <AppBar sx={{ background: "#1a674c" }}>
+    <AppBar  position="sticky"
+    sx={{ background: "#1a674c" }}>
       <Toolbar>
         <Typography variant="h4" color="#9fc5e8">
           MPKreuzberg'sBlog
         </Typography>
-        <Box display="flex" marginLeft={"auto"} marginRight="auto">
+       { isLoggedIn && <Box display="flex" marginLeft={"auto"} marginRight="auto">
           <Tabs
             textColor="inherit"
             value={value}
             onChange={(e, val) => setValue(val)}
           >
-            <Tab label="All Blogs" />
-            <Tab label="My Blogs" />
+            <Tab LinkComponent={Link} to="/blogs" label="All Blogs" />
+            <Tab LinkComponent={Link} to="/myBlogs" label="My Blogs" />
           </Tabs>
-        </Box>
+        </Box>}
         <Box display="flex" marginLeft="auto">
-          <Button
+         { !isLoggedIn && <> <Button
+          LinkComponent={Link} to="/auth"
             variant="contained"
             sx={{ margin: 1, borderradius: 5 }}
             color="warning"
@@ -36,19 +41,21 @@ const Header = () => {
             Login
           </Button>
           <Button
+          LinkComponent={Link} to="/auth"
             variant="contained"
             sx={{ margin: 1, borderradius: 5 }}
             color="warning"
           >
             SignUp
-          </Button>
-          <Button
+          </Button></>}
+         { isLoggedIn && <Button
+          LinkComponent={Link} to="/auth"
             variant="contained"
             sx={{ margin: 1, borderradius: 5 }}
             color="warning"
           >
             Logout
-          </Button>
+          </Button>}
         </Box>
       </Toolbar>
     </AppBar>
