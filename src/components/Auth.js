@@ -73,7 +73,7 @@ const Auth = () => {
             onClick={() => setIsSignup(!isSignup)}
             sx={{ borderRadius: 3, marginTop: 3 }}
           >
-            {isSignup ? "Login" : "Signup"}
+            Click here for {isSignup ? "Login" : "Signup"}
           </Button>
         </Box>
       </form>
